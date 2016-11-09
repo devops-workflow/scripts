@@ -28,3 +28,9 @@ if [ ! -d ${slaveDir} ]; then
   sudo -u ${slaveUser} mkdir -p ${slaveDir}
   #chown -R ${slaveUser}:${slaveGroup} ${dirSlave}
 fi
+
+# Requirements for PyEnv https://github.com/yyuu/pyenv/wiki/Common-build-problems
+# RedHat
+#yum install zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel
+# Ubuntu
+#apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils
