@@ -18,7 +18,7 @@ JAVA_OPTS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\
 # Didn't come up
 #docker run --name jenkins -d --restart=always -p 8080:8080 -p 5000:5000 -v ${jenkins_home}:/var/jenkins_home --env JAVA_OPTS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"\\\"Sandbox allow-scripts; default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';\\\"\"" jenkins
 
-docker run --name jenkins -d -u ${uid}:${gid} --restart=always -p 8080:8080 -p 5000:5000 -v ${jenkinsDir}:/var/jenkins_home jenkins
+docker run --name jenkins -d -u ${uid}:${gid} --restart=always -p 8080:8080 -p 50000:50000 -v ${jenkinsDir}:/var/jenkins_home jenkins
 
 # On first run, there will be a password in the log or in volume
 #docker logs jenkins
