@@ -2,16 +2,29 @@
 #
 # Install and setup docker service
 #
-dirDocker=/docker/docker
+mountHome=/data
+dirDocker=${mountHome}/docker/docker
 
-if [ -f /etc/lsb-release ]; then
+### Determine OS
+if [ -f /etc/os-release ]; then
+  OS=$(grep -E ^ID= /etc/os-release | cut -d= -f2)
+  # TODO: strip quotes
+elif [ -f /etc/lsb-release ]; then
   OS=$(grep DISTRIB_ID /etc/lsb-release | cut -d= -f2)
   Release=$(grep DISTRIB_RELEASE /etc/lsb-release | cut -d= -f2)
   CodeName=$(grep DISTRIB_CODENAME /etc/lsb-release | cut -d= -f2)
 fi
-if [ "$OS" == 'Ubuntu' ]; then
-  mkdir -p ${dirDocker}
-  ln -s ${dirDocker} /var/lib/docker
+### Install
+mkdir -p ${dirDocker}
+ln -s ${dirDocker} /var/lib/docker
+if [ "$OS" == 'amzn' ]; then
+  # RedHat like
+  yum -y update
+  #yum -y install lsb yum-utils device-mapper-persistent-data lvm2
+  yum -y install docker
+  service docker start
+  usermod -a -G docker ec2-user
+elif [ "$OS" == 'Ubuntu' ]; then
   # Ubuntu
   apt-get update
   apt-get -y install apt-transport-https ca-certificates

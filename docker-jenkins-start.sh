@@ -35,7 +35,7 @@ JAVA_OPTS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\
 #JENKINS_OPTS="--httpPort=-1 --httpsPort=8443 --httpsKeyStore=/var/jenkins_home/ssl/cacerts --httpsKeyStorePassword=changeit"
 #docker run --name jenkins -d -u ${uid}:${gid} --restart=always -p 443:8443 -p 50000:50000 -v ${jenkinsDir}:/var/jenkins_home --env JENKINS_OPTS="${JENKINS_OPTS}" jenkins
 
-docker run --name jenkins -d -u ${uid}:${gid} --restart=always -p 8080:8080 -p 50000:50000 -v ${jenkinsDir}:/var/jenkins_home jenkins
+docker run --name jenkins -d -u ${uid}:${gid} --restart=always -p 8080:8080 -p 50000:50000 -v ${jenkinsDir}:/var/jenkins_home jenkins/jenkins:lts
 
 # On first run, there will be a password in the log or in volume
 #docker logs jenkins

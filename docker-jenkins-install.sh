@@ -5,8 +5,9 @@
 ###
 jenkinsUser=jenkins
 jenkinsHome=/home/jenkins
-jenkinsDir=/mnt/software/servers/jenkins-master
+#jenkinsDir=/mnt/software/servers/jenkins-master
 #jenkinsDir=${jenkinsHome}/jenkins
+jenkinsDir=/data/jenkins
 useradd -c "Jenkins server" -G docker -m -d ${jenkinsHome} ${jenkinsUser}
 sudo -u ${jenkinsUser} mkdir -p ${jenkinsDir} ${jenkinsHome}/bin
 sudo -u ${jenkinsUser} cp *.sh ${jenkinsHome}/bin
