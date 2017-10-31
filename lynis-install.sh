@@ -64,3 +64,19 @@ if [ "$OS" == 'Ubuntu' ]; then
   #fi
 fi
 lynis show version
+
+### Setup auto updating cron job
+scriptdir=/usr/local/bin
+script=${scriptdir}/update-lynis.sh
+mkdir -p ${scriptdir}
+cat <<'SCRIPT' > ${script}
+if [ $(lynis update info | grep Status | grep Outdated | wc -l) -gt 0 ]; then
+  yum -y install lynis
+fi
+SCRIPT
+chmod +x ${script}
+cronfile=/tmp/lynis.cron
+cat <<CRON >${cronfile}
+@daily ${script}
+CRON
+crontab -u root ${cronfile}

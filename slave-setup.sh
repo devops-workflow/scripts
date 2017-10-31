@@ -11,12 +11,14 @@ for D in JenkinsSlave docker; do
   fi
 done
 #Create filesystems
-for D in sdb sdc; do
+#Devices RHEL: sdb sdc
+#Devices Ubuntu: xvdb xvdc
+for D in xvdb xvdc; do
   mkfs -t ext4 /dev/${D}
 done
 cat <<FSTAB >>/etc/fstab
-/dev/sdb	${mountHome}/docker	ext4	defaults	0 2
-/dev/sdc	${mountHome}/JenkinsSlave	ext4	defaults	0 2
+/dev/xvdb ${mountHome}/docker ext4 defaults 0 2
+/dev/xvdc ${mountHome}/JenkinsSlave ext4 defaults 0 2
 FSTAB
 mount -a
 
@@ -49,7 +51,7 @@ if [ ! -d ${slaveDir} ]; then
   #chown -R ${slaveUser}:${slaveGroup} ${dirSlave}
 fi
 
-# if /bin/sh is not bash, relink to bash
+# Ubuntu: if /bin/sh is not bash, relink to bash
 # rm /bin/sh
 # cd /bin && ln -s bash sh
 
