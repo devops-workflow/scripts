@@ -66,12 +66,14 @@ fi
 lynis show version
 
 ### Setup auto updating cron job
+installcmd='yum -y install lynis'
+installcmd='apt -y install lynis'
 scriptdir=/usr/local/bin
 script=${scriptdir}/update-lynis.sh
 mkdir -p ${scriptdir}
-cat <<'SCRIPT' > ${script}
+cat <<SCRIPT > ${script}
 if [ $(lynis update info | grep Status | grep Outdated | wc -l) -gt 0 ]; then
-  yum -y install lynis
+  ${installcmd}
 fi
 SCRIPT
 chmod +x ${script}
